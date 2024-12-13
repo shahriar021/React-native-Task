@@ -11,7 +11,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '../../hooks/useThemeContext';
 
 const TaskPage = () => {
-  const {theme, toggleTheme} = useTheme(); // Get the current theme and toggle function
+  const {theme, toggleTheme} = useTheme(); 
 
   const isDarkMode = theme === 'dark';
   const [tasks, setTasks] = useState([]);

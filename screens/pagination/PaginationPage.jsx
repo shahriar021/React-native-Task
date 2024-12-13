@@ -13,7 +13,7 @@ import {useNavigation} from '@react-navigation/native';
 import { useTheme } from '../../hooks/useThemeContext';
 
 const PaginationPage = () => {
-   const {theme, toggleTheme} = useTheme(); // Get the current theme and toggle function
+   const {theme, toggleTheme} = useTheme(); 
   
     const isDarkMode = theme === 'dark'; 
   const navigation = useNavigation();
@@ -52,7 +52,7 @@ const PaginationPage = () => {
   };
 
   useEffect(() => {
-    fetchPosts(1); // Fetch the first page of posts
+    fetchPosts(1); 
   }, []);
 
   const loadMorePosts = () => {

@@ -1,70 +1,3 @@
-// import AsyncStorage from '@react-native-async-storage/async-storage';
-// import {useNavigation} from '@react-navigation/native';
-// import React, {useState} from 'react';
-// import {View, Text, TextInput, StyleSheet, Button} from 'react-native';
-
-// const TaskPageCreate = () => {
-//   const [taskText, setTaskText] = useState('');
-//   const [tasks, setTasks] = useState([]);
-
-//   const navigation = useNavigation();
-//   const saveTasks = async () => {
-//     await AsyncStorage.setItem('tasks', JSON.stringify(tasks));
-//     await AsyncStorage.setItem('deletedTasks', JSON.stringify(deletedTasks));
-//   };
-
-//   const addTask = () => {
-//     if (taskText.trim()) {
-//       const newTask = {
-//         id: Date.now().toString(),
-//         text: taskText,
-//         completed: false,
-//       };
-//       const updatedTasks = [...tasks, newTask];
-//       setTasks(updatedTasks);
-//       saveTasks();
-//       setTaskText('');
-//       navigation.navigate('TaskPage');
-//     }
-//   };
-//   return (
-//     <View>
-//       <TextInput
-//         value={taskText}
-//         onChangeText={setTaskText}
-//         style={styles.input}
-//         placeholder="Enter task"
-//       />
-//       <Button title="Add Task" onPress={addTask} />
-//     </View>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   input: {
-//     height: 40,
-//     borderColor: 'gray',
-//     borderWidth: 1,
-//     marginBottom: 12,
-//     paddingLeft: 8,
-//   },
-// });
-
-// export default TaskPageCreate;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
@@ -83,7 +16,7 @@ const TaskPageCreate = () => {
   const [tasks, setTasks] = useState([]);
   const navigation = useNavigation();
 
-  // Save tasks to AsyncStorage
+  
   const saveTasks = async updatedTasks => {
     try {
       await AsyncStorage.setItem('tasks', JSON.stringify(updatedTasks));

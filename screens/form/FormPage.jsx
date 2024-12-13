@@ -17,7 +17,7 @@ import { launchImageLibrary } from 'react-native-image-picker';
 import { useTheme } from '../../hooks/useThemeContext';
 
 const FormPage = () => {
-   const {theme, toggleTheme} = useTheme(); // Get the current theme and toggle function
+   const {theme, toggleTheme} = useTheme();
   
     const isDarkMode = theme === 'dark'; 
   const navigation = useNavigation();

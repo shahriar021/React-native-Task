@@ -17,7 +17,7 @@ import {useFormDataState} from '../../hooks/useFormState';
 import {useTheme} from '../../hooks/useThemeContext';
 
 const HomePage = () => {
-  const {theme, toggleTheme} = useTheme(); // Get the current theme and toggle function
+  const {theme, toggleTheme} = useTheme(); 
 
   const isDarkMode = theme === 'dark';
 
