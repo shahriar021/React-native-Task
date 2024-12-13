@@ -1,5 +1,3 @@
-
-
 import React, {useState} from 'react';
 import {
   SafeAreaView,
@@ -16,17 +14,15 @@ import {
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {useNavigation} from '@react-navigation/native';
 import {useFormDataState} from '../../hooks/useFormState';
-import { useTheme } from '../../hooks/useThemeContext';
+import {useTheme} from '../../hooks/useThemeContext';
 
 const HomePage = () => {
-
   const {theme, toggleTheme} = useTheme(); // Get the current theme and toggle function
 
-  const isDarkMode = theme === 'dark'; 
-
+  const isDarkMode = theme === 'dark';
 
   const navigation = useNavigation();
-  
+
   const {formData} = useFormDataState();
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -38,98 +34,7 @@ const HomePage = () => {
     padding: 20,
   };
 
-  const dynamicStyles = StyleSheet.create({
-    title: {
-      fontSize: 28,
-      fontWeight: 'bold',
-      marginBottom: 20,
-      color: isDarkMode ? '#FFFFFF' : '#333',
-    },
-    pageButton: {
-      backgroundColor: isDarkMode ? '#1E90FF' : '#007BFF',
-      paddingVertical: 15,
-      paddingHorizontal: 20,
-      borderRadius: 10,
-      marginBottom: 15,
-      alignItems: 'center',
-      shadowColor: '#000',
-      shadowOffset: {width: 0, height: 2},
-      shadowOpacity: isDarkMode ? 0.4 : 0.1,
-      shadowRadius: 3,
-      elevation: 2,
-    },
-    pageButtonText: {
-      color: '#FFFFFF',
-      fontSize: 18,
-      fontWeight: '600',
-    },
-    showDataButton: {
-      backgroundColor: isDarkMode ? '#32CD32' : '#28A745',
-      paddingVertical: 15,
-      paddingHorizontal: 20,
-      borderRadius: 10,
-      alignItems: 'center',
-      shadowColor: '#000',
-      shadowOffset: {width: 0, height: 2},
-      shadowOpacity: isDarkMode ? 0.4 : 0.1,
-      shadowRadius: 3,
-      elevation: 2,
-    },
-    showDataButtonText: {
-      color: '#FFFFFF',
-      fontSize: 18,
-      fontWeight: '600',
-    },
-    modalView: {
-      width: '90%',
-      backgroundColor: isDarkMode ? '#333333' : '#FFFFFF',
-      borderRadius: 20,
-      padding: 20,
-      alignItems: 'center',
-      shadowColor: '#000',
-      shadowOffset: {width: 0, height: 2},
-      shadowOpacity: 0.25,
-      shadowRadius: 4,
-      elevation: 5,
-    },
-    modalText: {
-      fontSize: 16,
-      fontWeight: '500',
-      marginBottom: 10,
-      textAlign: 'center',
-      color: isDarkMode ? '#FFFFFF' : '#333',
-    },
-    modalButton: {
-      marginTop: 10,
-      paddingVertical: 10,
-      paddingHorizontal: 20,
-      borderRadius: 10,
-      elevation: 2,
-    },
-    modalCloseButton: {
-      backgroundColor: isDarkMode ? '#FF6347' : '#DC3545',
-    },
-    modalButtonText: {
-      color: '#FFFFFF',
-      fontWeight: '600',
-      textAlign: 'center',
-    },
-    themeButton: {
-      position: 'absolute', // Absolute positioning
-      top: 10, // Distance from the top
-      right: 10, // Distance from the right
-      backgroundColor: isDarkMode ? '#1E90FF' : '#007BFF',
-      paddingVertical: 10,
-      paddingHorizontal: 15,
-      borderRadius: 20,
-    },
-    themeButtonText: {
-      color: '#FFFFFF',
-      fontSize: 14,
-      fontWeight: '600',
-    },
-  });
-  
+  const dynamicStyles = getDynamicStyles(isDarkMode);
 
   return (
     <SafeAreaView style={backgroundStyle}>
@@ -206,7 +111,6 @@ const HomePage = () => {
       </TouchableOpacity>
     </SafeAreaView>
   );
-  
 };
 
 const styles = StyleSheet.create({
@@ -227,5 +131,98 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
 });
+
+const getDynamicStyles = isDarkMode =>
+  StyleSheet.create({
+    title: {
+      fontSize: 28,
+      fontWeight: 'bold',
+      marginBottom: 20,
+      color: isDarkMode ? '#FFFFFF' : '#333',
+    },
+    pageButton: {
+      backgroundColor: isDarkMode ? '#1E90FF' : '#007BFF',
+      paddingVertical: 15,
+      paddingHorizontal: 20,
+      borderRadius: 10,
+      marginBottom: 15,
+      alignItems: 'center',
+      shadowColor: '#000',
+      shadowOffset: {width: 0, height: 2},
+      shadowOpacity: isDarkMode ? 0.4 : 0.1,
+      shadowRadius: 3,
+      elevation: 2,
+    },
+    pageButtonText: {
+      color: '#FFFFFF',
+      fontSize: 18,
+      fontWeight: '600',
+    },
+    showDataButton: {
+      backgroundColor: isDarkMode ? '#32CD32' : '#28A745',
+      paddingVertical: 15,
+      paddingHorizontal: 20,
+      borderRadius: 10,
+      alignItems: 'center',
+      shadowColor: '#000',
+      shadowOffset: {width: 0, height: 2},
+      shadowOpacity: isDarkMode ? 0.4 : 0.1,
+      shadowRadius: 3,
+      elevation: 2,
+    },
+    showDataButtonText: {
+      color: '#FFFFFF',
+      fontSize: 18,
+      fontWeight: '600',
+    },
+    modalView: {
+      width: '90%',
+      backgroundColor: isDarkMode ? '#333333' : '#FFFFFF',
+      borderRadius: 20,
+      padding: 20,
+      alignItems: 'center',
+      shadowColor: '#000',
+      shadowOffset: {width: 0, height: 2},
+      shadowOpacity: 0.25,
+      shadowRadius: 4,
+      elevation: 5,
+    },
+    modalText: {
+      fontSize: 16,
+      fontWeight: '500',
+      marginBottom: 10,
+      textAlign: 'center',
+      color: isDarkMode ? '#FFFFFF' : '#333',
+    },
+    modalButton: {
+      marginTop: 10,
+      paddingVertical: 10,
+      paddingHorizontal: 20,
+      borderRadius: 10,
+      elevation: 2,
+    },
+    modalCloseButton: {
+      backgroundColor: isDarkMode ? '#FF6347' : '#DC3545',
+    },
+    modalButtonText: {
+      color: '#FFFFFF',
+      fontWeight: '600',
+      textAlign: 'center',
+    },
+    themeButton: {
+      position: 'absolute',
+      top: 10,
+      right: 10,
+      backgroundColor: isDarkMode ? '#1E90FF' : '#007BFF',
+      paddingVertical: 10,
+      paddingHorizontal: 15,
+      borderRadius: 20,
+    },
+    themeButtonText: {
+      color: '#FFFFFF',
+      fontSize: 14,
+      fontWeight: '600',
+    },
+  });
 
 export default HomePage;
