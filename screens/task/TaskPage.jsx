@@ -1,263 +1,3 @@
-// // import React, {useState, useEffect} from 'react';
-// // import {
-// //   View,
-// //   Text,
-// //   TextInput,
-// //   Button,
-// //   FlatList,
-// //   StyleSheet,
-// //   Alert,
-// // } from 'react-native';
-// // import AsyncStorage from '@react-native-async-storage/async-storage';
-
-// // const TaskManagementScreen = () => {
-// //   const [taskText, setTaskText] = useState('');
-// //   const [tasks, setTasks] = useState([]);
-// //   const [deletedTasks, setDeletedTasks] = useState([]);
-
-// //   // Load tasks from AsyncStorage when the component mounts
-// //   useEffect(() => {
-// //     const loadTasks = async () => {
-// //       const storedTasks = await AsyncStorage.getItem('tasks');
-// //       const storedDeletedTasks = await AsyncStorage.getItem('deletedTasks');
-// //       if (storedTasks) {
-// //         setTasks(JSON.parse(storedTasks));
-// //       }
-// //       if (storedDeletedTasks) {
-// //         setDeletedTasks(JSON.parse(storedDeletedTasks));
-// //       }
-// //     };
-// //     loadTasks();
-// //   }, []);
-
-// //   // Save tasks to AsyncStorage
-// //   const saveTasks = async () => {
-// //     await AsyncStorage.setItem('tasks', JSON.stringify(tasks));
-// //     await AsyncStorage.setItem('deletedTasks', JSON.stringify(deletedTasks));
-// //   };
-
-// //   // Add a new task
-// //   const addTask = () => {
-// //     if (taskText.trim()) {
-// //       const newTask = {
-// //         id: Date.now().toString(),
-// //         text: taskText,
-// //         completed: false,
-// //       };
-// //       const updatedTasks = [...tasks, newTask];
-// //       setTasks(updatedTasks);
-// //       saveTasks();
-// //       setTaskText('');
-// //     }
-// //   };
-
-// //   // Delete a task (mark as deleted)
-// //   const deleteTask = id => {
-// //     const updatedTasks = tasks.filter(task => task.id !== id);
-// //     const taskToDelete = tasks.find(task => task.id === id);
-// //     const updatedDeletedTasks = [...deletedTasks, taskToDelete];
-// //     setTasks(updatedTasks);
-// //     setDeletedTasks(updatedDeletedTasks);
-// //     saveTasks();
-// //   };
-
-// //   // Restore a deleted task
-// //   const restoreTask = id => {
-// //     const updatedDeletedTasks = deletedTasks.filter(task => task.id !== id);
-// //     const taskToRestore = deletedTasks.find(task => task.id === id);
-// //     const updatedTasks = [...tasks, taskToRestore];
-// //     setTasks(updatedTasks);
-// //     setDeletedTasks(updatedDeletedTasks);
-// //     saveTasks();
-// //   };
-
-// //   // Mark task as completed
-// //   const completeTask = id => {
-// //     const updatedTasks = tasks.map(task =>
-// //       task.id === id ? {...task, completed: !task.completed} : task,
-// //     );
-// //     setTasks(updatedTasks);
-// //     saveTasks();
-// //   };
-
-// //   return (
-// //     <View style={styles.container}>
-// //       {/* Input for new task */}
-
-// //       {/* Active tasks */}
-// //       <Text style={styles.sectionTitle}>Active Tasks</Text>
-// //       <FlatList
-// //         data={tasks}
-// //         renderItem={({item}) => (
-// //           <View style={styles.taskItem}>
-// //             <Text style={item.completed ? styles.completedTask : null}>
-// //               {item.text}
-// //             </Text>
-// //             <Button title="Complete" onPress={() => completeTask(item.id)} />
-// //             <Button title="Delete" onPress={() => deleteTask(item.id)} />
-// //           </View>
-// //         )}
-// //         keyExtractor={item => item.id}
-// //       />
-
-// //       {/* Deleted tasks */}
-// //       <Text style={styles.sectionTitle}>Deleted Tasks</Text>
-// //       <FlatList
-// //         data={deletedTasks}
-// //         renderItem={({item}) => (
-// //           <View style={styles.taskItem}>
-// //             <Text style={item.completed ? styles.completedTask : null}>
-// //               {item.text}
-// //             </Text>
-// //             <Button title="Restore" onPress={() => restoreTask(item.id)} />
-// //           </View>
-// //         )}
-// //         keyExtractor={item => item.id}
-// //       />
-// //     </View>
-// //   );
-// // };
-
-// // const styles = StyleSheet.create({
-// //   container: {
-// //     flex: 1,
-// //     padding: 16,
-// //   },
-
-// //   sectionTitle: {
-// //     fontWeight: 'bold',
-// //     marginTop: 20,
-// //   },
-// //   taskItem: {
-// //     flexDirection: 'row',
-// //     justifyContent: 'space-between',
-// //     alignItems: 'center',
-// //     padding: 8,
-// //     marginVertical: 4,
-// //     backgroundColor: '#f4f4f4',
-// //   },
-// //   completedTask: {
-// //     textDecorationLine: 'line-through',
-// //     color: 'gray',
-// //   },
-// // });
-
-// // export default TaskManagementScreen;
-
-// import React, {useState, useEffect} from 'react';
-// import {View, Text, Button, FlatList, StyleSheet, Alert} from 'react-native';
-// import AsyncStorage from '@react-native-async-storage/async-storage';
-
-// const TaskManagementScreen = () => {
-//   const [tasks, setTasks] = useState([]);
-//   const [deletedTasks, setDeletedTasks] = useState([]);
-
-//   useEffect(() => {
-//     const loadTasks = async () => {
-//       const storedTasks = await AsyncStorage.getItem('tasks');
-//       const storedDeletedTasks = await AsyncStorage.getItem('deletedTasks');
-//       setTasks(storedTasks ? JSON.parse(storedTasks) : []); // Default to empty array
-//       setDeletedTasks(storedDeletedTasks ? JSON.parse(storedDeletedTasks) : []); // Default to empty array
-//     };
-//     loadTasks();
-//   }, []);
-
-//   // Save tasks and deleted tasks to AsyncStorage
-//   const saveTasks = async () => {
-//     await AsyncStorage.setItem('tasks', JSON.stringify(tasks));
-//     await AsyncStorage.setItem('deletedTasks', JSON.stringify(deletedTasks));
-//   };
-
-//   const deleteTask = id => {
-//     const updatedTasks = tasks.filter(task => task.id !== id);
-//     const taskToDelete = tasks.find(task => task.id === id);
-//     const updatedDeletedTasks = [...deletedTasks, taskToDelete];
-//     setTasks(updatedTasks);
-//     setDeletedTasks(updatedDeletedTasks);
-//     saveTasks();
-//   };
-
-//   const restoreTask = id => {
-//     const updatedDeletedTasks = deletedTasks.filter(task => task.id !== id);
-//     const taskToRestore = deletedTasks.find(task => task.id === id);
-//     const updatedTasks = [...tasks, taskToRestore];
-//     setTasks(updatedTasks);
-//     setDeletedTasks(updatedDeletedTasks);
-//     saveTasks();
-//   };
-
-//   const completeTask = id => {
-//     const updatedTasks = tasks.map(task =>
-//       task.id === id ? {...task, completed: !task.completed} : task,
-//     );
-//     setTasks(updatedTasks);
-//     saveTasks();
-//   };
-
-//   return (
-//     <View style={styles.container}>
-//       <Text style={styles.sectionTitle}>Active Tasks</Text>
-//       <FlatList
-//         data={tasks}
-//         renderItem={({item}) => (
-//           <View style={styles.taskItem}>
-//             <Text style={item.completed ? styles.completedTask : null}>
-//               {item?.text}
-//             </Text>
-//             <Button
-//               title={item.completed ? 'completed' : 'complete'}
-//               onPress={() => completeTask(item.id)}
-//             />
-//             <Button title="Delete" onPress={() => deleteTask(item.id)} />
-//           </View>
-//         )}
-//         keyExtractor={item => item.id}
-//       />
-
-//       <Text style={styles.sectionTitle}>Deleted Tasks</Text>
-//       <FlatList
-//         data={deletedTasks}
-//         renderItem={({item}) => (
-//           <View style={styles.taskItem}>
-//             <Text style={item.completed ? styles.completedTask : null}>
-//               {item.text}
-//             </Text>
-//             <Button title="Restore" onPress={() => restoreTask(item.id)} />
-//           </View>
-//         )}
-//         keyExtractor={item => item.id}
-//       />
-//     </View>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     padding: 16,
-//   },
-//   sectionTitle: {
-//     fontWeight: 'bold',
-//     marginTop: 20,
-//   },
-//   taskItem: {
-//     flexDirection: 'row',
-//     justifyContent: 'space-between',
-//     alignItems: 'center',
-//     padding: 8,
-//     marginVertical: 4,
-//     backgroundColor: '#f4f4f4',
-//   },
-//   completedTask: {
-//     textDecorationLine: 'line-through',
-//     textDecorationColor: 'red',
-//     textDecorationStyle:"solid",
-//     color: 'red',
-//   },
-// });
-
-// export default TaskManagementScreen;
-
 import React, {useState, useEffect} from 'react';
 import {
   View,
@@ -268,8 +8,12 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useTheme } from '../../hooks/useThemeContext';
 
 const TaskPage = () => {
+  const {theme, toggleTheme} = useTheme(); // Get the current theme and toggle function
+
+  const isDarkMode = theme === 'dark';
   const [tasks, setTasks] = useState([]);
   const [deletedTasks, setDeletedTasks] = useState([]);
 
@@ -315,7 +59,7 @@ const TaskPage = () => {
   };
 
   const renderTask = ({item}, isDeleted = false) => (
-    <View style={styles.taskItem}>
+    <View style={[styles.taskItem, isDarkMode && styles.taskItemDark]}>
       <Text style={[styles.taskText, item.completed && styles.completedTask]}>
         {item?.text}
       </Text>
@@ -349,8 +93,11 @@ const TaskPage = () => {
   );
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.sectionTitle}>Active Tasks</Text>
+    <View style={[styles.container, isDarkMode && styles.containerDark]}>
+      <Text
+        style={[styles.sectionTitle, isDarkMode && styles.sectionTitleDark]}>
+        Active Tasks
+      </Text>
       <FlatList
         data={tasks}
         renderItem={item => renderTask(item)}
@@ -360,7 +107,10 @@ const TaskPage = () => {
         }
       />
 
-      <Text style={styles.sectionTitle}>Deleted Tasks</Text>
+      <Text
+        style={[styles.sectionTitle, isDarkMode && styles.sectionTitleDark]}>
+        Deleted Tasks
+      </Text>
       <FlatList
         data={deletedTasks}
         renderItem={item => renderTask(item, true)}
@@ -440,6 +190,21 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#aaa',
     marginTop: 20,
+  },
+  taskItemDark: {
+    backgroundColor: '#444',
+  },
+  containerDark: {
+    backgroundColor: '#333',
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    color: '#333',
+  },
+  sectionTitleDark: {
+    color: '#fff',
   },
 });
 

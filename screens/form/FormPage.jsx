@@ -14,8 +14,12 @@ import {
 
 import {useFormDataState} from '../../hooks/useFormState';
 import { launchImageLibrary } from 'react-native-image-picker';
+import { useTheme } from '../../hooks/useThemeContext';
 
 const FormPage = () => {
+   const {theme, toggleTheme} = useTheme(); // Get the current theme and toggle function
+  
+    const isDarkMode = theme === 'dark'; 
   const navigation = useNavigation();
   const {formData, updatedData} = useFormDataState();
 
@@ -39,13 +43,14 @@ const FormPage = () => {
       },
     ]);
   };
+  const styles = createStyles(isDarkMode);
 
   return (
     <KeyboardAvoidingView
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <View style={styles.innerContainer}>
-        <Text style={styles.heading}>Complete Your Profile</Text>
+        <Text style={styles.heading}>Form Screen</Text>
         {formData.imageUri ? (
           <Image source={{uri: formData.imageUri}} style={styles.image} />
         ) : (
@@ -79,81 +84,82 @@ const FormPage = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f8f9fa',
-  },
-  innerContainer: {
-    flex: 1,
-    padding: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  heading: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#343a40',
-    marginBottom: 30,
-    textAlign: 'center',
-  },
-  image: {
-    width: 150,
-    height: 150,
-    borderRadius: 75,
-    marginBottom: 20,
-  },
-  imagePlaceholder: {
-    width: 150,
-    height: 150,
-    borderRadius: 75,
-    backgroundColor: '#e9ecef',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  imagePlaceholderText: {
-    color: '#6c757d',
-    fontSize: 14,
-  },
-  pickImageButton: {
-    backgroundColor: '#007bff',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-    marginBottom: 20,
-  },
-  pickImageButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  input: {
-    width: '100%',
-    height: 50,
-    backgroundColor: '#fff',
-    borderColor: '#ced4da',
-    borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 20,
-    paddingHorizontal: 15,
-    fontSize: 16,
-    color: '#495057',
-  },
-  submitButton: {
-    backgroundColor: '#28a745',
-    paddingVertical: 15,
-    paddingHorizontal: 30,
-    borderRadius: 5,
-    marginTop: 20,
-    width: '100%',
-    alignItems: 'center',
-  },
-  submitButtonText: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-});
+const createStyles = isDarkMode =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: isDarkMode ? '#121212' : '#f8f9fa',
+    },
+    innerContainer: {
+      flex: 1,
+      padding: 20,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    heading: {
+      fontSize: 24,
+      fontWeight: 'bold',
+      color: isDarkMode ? '#ffffff' : '#343a40',
+      marginBottom: 30,
+      textAlign: 'center',
+    },
+    image: {
+      width: 150,
+      height: 150,
+      borderRadius: 75,
+      marginBottom: 20,
+    },
+    imagePlaceholder: {
+      width: 150,
+      height: 150,
+      borderRadius: 75,
+      backgroundColor: isDarkMode ? '#424242' : '#e9ecef',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginBottom: 20,
+    },
+    imagePlaceholderText: {
+      color: isDarkMode ? '#bbb' : '#6c757d',
+      fontSize: 14,
+    },
+    pickImageButton: {
+      backgroundColor: isDarkMode ? '#1E88E5' : '#007bff',
+      paddingVertical: 10,
+      paddingHorizontal: 20,
+      borderRadius: 5,
+      marginBottom: 20,
+    },
+    pickImageButtonText: {
+      color: '#fff',
+      fontSize: 16,
+      fontWeight: 'bold',
+    },
+    input: {
+      width: '100%',
+      height: 50,
+      backgroundColor: isDarkMode ? '#1E1E1E' : '#fff',
+      borderColor: isDarkMode ? '#666' : '#ced4da',
+      borderWidth: 1,
+      borderRadius: 8,
+      marginBottom: 20,
+      paddingHorizontal: 15,
+      fontSize: 16,
+      color: isDarkMode ? '#ddd' : '#495057',
+    },
+    submitButton: {
+      backgroundColor: isDarkMode ? '#2E7D32' : '#28a745',
+      paddingVertical: 15,
+      paddingHorizontal: 30,
+      borderRadius: 5,
+      marginTop: 20,
+      width: '100%',
+      alignItems: 'center',
+    },
+    submitButtonText: {
+      color: '#fff',
+      fontSize: 18,
+      fontWeight: 'bold',
+    },
+  });
 
 export default FormPage;

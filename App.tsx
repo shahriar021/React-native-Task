@@ -22,35 +22,38 @@ import FormPage from './screens/form/FormPage';
 import PostDetailPage from './screens/pagination/PostDetailPage';
 import HomePage from './screens/home/HomePage';
 import PaginationPage from './screens/pagination/PaginationPage';
+import { ThemeProvider } from './hooks/useThemeContext';
 
 const Stack = createStackNavigator();
 
 const App = () => {
   return (
-    <FormStateProvider>
-      <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{headerShown: true, headerTitleAlign: 'center'}}>
-          <Stack.Screen name="Home" component={HomePage} />
-          <Stack.Screen name="PaginationPage" component={PaginationPage} />
-          <Stack.Screen
-            name="TaskPage"
-            component={TaskPage}
-            options={({navigation}) => ({
-              headerRight: () => (
-                <TouchableOpacity
-                  onPress={() => navigation.navigate('TaskPageCreate')}>
-                  <Text style={styles.addTask}>Add Task</Text>
-                </TouchableOpacity>
-              ),
-            })}
-          />
-          <Stack.Screen name="FormPage" component={FormPage} />
-          <Stack.Screen name="PostDetailPage" component={PostDetailPage} />
-          <Stack.Screen name="TaskPageCreate" component={TaskPageCreate} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </FormStateProvider>
+    <ThemeProvider>
+      <FormStateProvider>
+        <NavigationContainer>
+          <Stack.Navigator
+            screenOptions={{headerShown: true, headerTitleAlign: 'center'}}>
+            <Stack.Screen name="Home" component={HomePage} />
+            <Stack.Screen name="PaginationPage" component={PaginationPage} />
+            <Stack.Screen
+              name="TaskPage"
+              component={TaskPage}
+              options={({navigation}) => ({
+                headerRight: () => (
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate('TaskPageCreate')}>
+                    <Text style={styles.addTask}>Add Task</Text>
+                  </TouchableOpacity>
+                ),
+              })}
+            />
+            <Stack.Screen name="FormPage" component={FormPage} />
+            <Stack.Screen name="PostDetailPage" component={PostDetailPage} />
+            <Stack.Screen name="TaskPageCreate" component={TaskPageCreate} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </FormStateProvider>
+    </ThemeProvider>
   );
 };
 
